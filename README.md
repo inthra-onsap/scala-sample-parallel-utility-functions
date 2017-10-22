@@ -1,5 +1,6 @@
 # Custom parallel utility functions
 
+A sample code implementation for merge sort, map, reduce, fold and scan in parallel paradigm
  
 
 ### Usage Examples
