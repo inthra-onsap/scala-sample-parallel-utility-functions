@@ -7,6 +7,7 @@ package object common {
 
   abstract class TaskScheduler {
     def schedule[T](body: => T): ForkJoinTask[T]
+
     def parallel[A, B](taskA: => A, taskB: => B): (A, B) = {
       val right = task {
         taskB
@@ -18,9 +19,11 @@ package object common {
 
   class DefaultTaskScheduler extends TaskScheduler {
     def schedule[T](body: => T): ForkJoinTask[T] = {
+
       val t = new RecursiveTask[T] {
         def compute = body
       }
+
       Thread.currentThread match {
         case wt: ForkJoinWorkerThread =>
           t.fork()
