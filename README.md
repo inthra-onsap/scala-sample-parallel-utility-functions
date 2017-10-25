@@ -6,6 +6,7 @@ A sample code implementation for merge sort, map, reduce, fold and scan in paral
 ## Usage Examples
 
 - [ParOrdering Object](#parordering-object)
+- [ParSeq Object](#parseq-object)
 
 
 ### [ParOrdering Object](#parordering-object)
@@ -42,7 +43,7 @@ res2: Array[Int] = Array(-2, 0, 0, 0, 0, 2, 2, 5, 8, 8, 8, 9, 9, 9, 17, 89, 900)
 ```
 
 
-### ParSeq Object
+### [ParSeq Object](#parseq-object)
 ```sbtshell
 scala> import ionsap.util._
 
