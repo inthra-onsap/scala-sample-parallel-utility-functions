@@ -74,9 +74,12 @@ res3: Int = 212
 /**
 * Parallel ReduceLeft & ReduceRight utility
 */
-scala> ParSeq.parScanLeft(in, 5)((acc, x) => acc + x)
+scala> val initVal:Int = 5
+initVal: Int = 5
+
+scala> ParSeq.parScanLeft(in, initVal)((acc, x) => acc + x)
 res4: Array[Int] = Array(5, 6, 11, 89, 98, 98, 105, 108, 109, 114, 121, 203, 212, 217)
 
-scala> ParSeq.parScanRight(in, 5)((x, acc) => x + acc)
+scala> ParSeq.parScanRight(in, initVal)((x, acc) => x + acc)
 res5: Array[Int] = Array(217, 216, 211, 133, 124, 124, 117, 114, 113, 108, 101, 19, 10, 5)
 ```
