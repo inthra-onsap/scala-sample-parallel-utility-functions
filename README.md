@@ -5,7 +5,7 @@ A sample code implementation for merge sort, map, reduce, fold and scan in paral
 
 ## Usage Examples
 
-- [ParOrdering Object](parordering-object)
+- [ParOrdering Object](#parordering-object)
 
 
 ### [ParOrdering Object](#parordering-object)
