@@ -51,13 +51,13 @@ scala> val in = Array[Int](1, 5, 78, 9, 0, 7, 3, 1, 5, 7, 82, 9, 5)
 in: Array[Int] = Array(1, 5, 78, 9, 0, 7, 3, 1)
 
 /**
-* Parallel Map utility
+* Parallel parMap utility
 */
 scala> ParSeq.parMap(in, 0, in.length, (x: Int) => {x + 0.5})
 res1: Array[Double] = Array(1.5, 5.5, 78.5, 9.5, 0.5, 7.5, 3.5, 1.5, 5.5, 7.5, 82.5, 9.5, 5.5)
 
 /**
-* Parallel Fold utility
+* Parallel parFold utility
 */
 scala> val initVal:Int = 0
 initVal: Int = 0
@@ -66,13 +66,13 @@ scala> ParSeq.parFold(in, initVal)((acc, x) => acc + x)
 res2: Int = 212
 
 /**
-* Parallel Reduce utility
+* Parallel parReduce utility
 */
 scala> ParSeq.parReduce(in)((acc, x) => acc + x)
 res3: Int = 212
 
 /**
-* Parallel ReduceLeft & ReduceRight utility
+* Parallel parScanLeft & parScanRight utility
 */
 scala> val initVal:Int = 5
 initVal: Int = 5
