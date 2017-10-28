@@ -14,7 +14,7 @@ object ParOrdering {
     in(j) = tmp
   }
 
-  private def quickSort[T](in: Array[T], from: Int, until: Int)(ord: => Ordering[T]): Unit = {
+  private def quickSort[T](in: Array[T], from: Int, until: Int, ord: => Ordering[T]): Unit = {
     if ((until - from) > 1) {
       var pivot = from + (rand.nextInt(Integer.MAX_VALUE) % (until - from))
       var i = from
@@ -35,8 +35,8 @@ object ParOrdering {
           i += 1
         }
       }
-      quickSort(in, from, pivot)(ord)
-      quickSort(in, i, until)(ord)
+      quickSort(in, from, pivot, ord)
+      quickSort(in, i, until, ord)
     }
   }
 
@@ -52,7 +52,7 @@ object ParOrdering {
     }
   }
 
-  private def merge[T](in: Array[T], out: Array[T], from: Int, mid: Int, until: Int)(ord: => Ordering[T]): Unit = {
+  private def merge[T](in: Array[T], out: Array[T], from: Int, mid: Int, until: Int, ord: => Ordering[T]): Unit = {
     var left = from
     val leftBound = mid
     var right = mid
@@ -83,21 +83,21 @@ object ParOrdering {
     }
   }
 
-  private def mergeSort[T](in: Array[T], out: Array[T], from: Int, until: Int, depth: Int)(ord: => Ordering[T]): Unit = {
+  private def mergeSort[T](in: Array[T], out: Array[T], from: Int, until: Int, depth: Int, ord: => Ordering[T]): Unit = {
     if (depth == maxDepth) {
-      quickSort(in, from, until)(ord)
+      quickSort(in, from, until, ord)
     } else {
       val mid = (until + from) / 2
-      parallel(mergeSort(in, out, from, mid, depth + 1)(ord), mergeSort(in, out, mid, until, depth + 1)(ord))
+      parallel(mergeSort(in, out, from, mid, depth + 1, ord), mergeSort(in, out, mid, until, depth + 1, ord))
 
       val flip = (maxDepth - depth) % 2 == 0
-      merge(if (flip) out else in, if (flip) in else out, from, mid, until)(ord)
+      merge(if (flip) out else in, if (flip) in else out, from, mid, until, ord)
     }
   }
 
   def parMergeSort[T: Ordering](in: Array[T]): Unit = {
     val out = in.clone()
-    mergeSort(in, out, 0, in.length, 0)(implicitly[Ordering[T]])
+    mergeSort(in, out, 0, in.length, 0, implicitly[Ordering[T]])
     if (maxDepth % 2 != 0) {
       parCopy(out, in, 0, in.length, 0)
     }
