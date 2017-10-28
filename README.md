@@ -5,8 +5,11 @@ A sample code implementation for merge sort, map, reduce, fold and scan in paral
 
 ## Usage Examples
 
+- [ParOrdering Object](#parordering-object)
+- [ParSeq Object](#parseq-object)
 
-### ParOrdering Object
+
+### [ParOrdering Object](#parordering-object)
 
 ```sbtshell
 scala> import ionsap.util._
@@ -40,7 +43,7 @@ res2: Array[Int] = Array(-2, 0, 0, 0, 0, 2, 2, 5, 8, 8, 8, 9, 9, 9, 17, 89, 900)
 ```
 
 
-### ParSeq Object
+### [ParSeq Object](#parseq-object)
 ```sbtshell
 scala> import ionsap.util._
 
@@ -48,13 +51,13 @@ scala> val in = Array[Int](1, 5, 78, 9, 0, 7, 3, 1, 5, 7, 82, 9, 5)
 in: Array[Int] = Array(1, 5, 78, 9, 0, 7, 3, 1)
 
 /**
-* Parallel Map utility
+* Parallel parMap utility
 */
 scala> ParSeq.parMap(in, 0, in.length, (x: Int) => {x + 0.5})
 res1: Array[Double] = Array(1.5, 5.5, 78.5, 9.5, 0.5, 7.5, 3.5, 1.5, 5.5, 7.5, 82.5, 9.5, 5.5)
 
 /**
-* Parallel Fold utility
+* Parallel parFold utility
 */
 scala> val initVal:Int = 0
 initVal: Int = 0
@@ -63,17 +66,20 @@ scala> ParSeq.parFold(in, initVal)((acc, x) => acc + x)
 res2: Int = 212
 
 /**
-* Parallel Reduce utility
+* Parallel parReduce utility
 */
 scala> ParSeq.parReduce(in)((acc, x) => acc + x)
 res3: Int = 212
 
 /**
-* Parallel ReduceLeft & ReduceRight utility
+* Parallel parScanLeft & parScanRight utility
 */
-scala> ParSeq.parScanLeft(in, 5)((acc, x) => acc + x)
+scala> val initVal:Int = 5
+initVal: Int = 5
+
+scala> ParSeq.parScanLeft(in, initVal)((acc, x) => acc + x)
 res4: Array[Int] = Array(5, 6, 11, 89, 98, 98, 105, 108, 109, 114, 121, 203, 212, 217)
 
-scala> ParSeq.parScanRight(in, 5)((x, acc) => x + acc)
+scala> ParSeq.parScanRight(in, initVal)((x, acc) => x + acc)
 res5: Array[Int] = Array(217, 216, 211, 133, 124, 124, 117, 114, 113, 108, 101, 19, 10, 5)
 ```
